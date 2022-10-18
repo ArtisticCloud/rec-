@@ -85,6 +85,7 @@ function add_button(Type,text)
     button.BackgroundColor3 = Color3.fromRGB(0,0,0)    
     button.RichText = true;
     button.Text = '<i>'..text..'</i>';
+    button.TextColor3 = Color3.fromRGB(255,255,255);
     button.Font = Enum.Font.GothamBold;
     button.TextXAlignment = Enum.TextXAlignment.Left;
     button.Position = UDim2.fromScale(0,0);
