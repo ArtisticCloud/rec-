@@ -97,9 +97,6 @@ function add_button(Type,text)
     uicorner(0,button);
 end;
 
-add_button('OffBall','Auto-Guard')
-add_button('OnBall','Auto-Guard')
-
 --values for the current option
 local shooting = false;
 
@@ -150,6 +147,14 @@ _G.OnBallActions = {
 
 _G.OffBallActions = {
     ['Rebounding'] = function()
-    
+        
     end;
 }
+
+for name,action in _G.OnBallActions do
+    add_button('OnBall',name);
+end;
+
+for name,action in _G.OffBallActions do
+    add_button('OffBall',name);
+end;
