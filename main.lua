@@ -5,6 +5,9 @@ local humanoid = character:WaitForChild('Humanoid');
 
 local playergui = player:WaitForChild('PlayerGui');
 
+if playergui:FindFirstChild('MainGui') then
+    playergui.MainGui:Destroy();
+end;
 
 --services
 local rs = game:GetService('ReplicatedStorage');
@@ -45,7 +48,7 @@ local title = Instance.new('TextLabel');
 title.BackgroundTransparency = 1;
 title.TextScaled = true;
 title.RichText = true;
-title.Text = '<i>Rect Boosting Gui</i>'
+title.Text = '<i>Rec Boosting Gui</i>'
 title.Font = Enum.Font.GothamBold;
 title.TextXAlignment = Enum.TextXAlignment.Left;
 title.TextColor3 = Color3.fromRGB(255,255,255);
@@ -110,8 +113,11 @@ function get_ball()
 end;
 
 function shoot(value)
-    rs.Action:FireServer('Shoot',value);
-    shooting = true;
+    rs.GameEvents.ClientAction:FireServer('Shoot',value);
+end;
+
+function sprint(value)
+    rs.GameEvents.ClientAction('Sprint',value);
 end;
 
 local moving = false;
@@ -129,19 +135,45 @@ end;
 _G.OnBallActions = {
 
     ['Auto Shoot'] = function()
-        
+        shoot(true);
+        shooting = true;
     end;
 
     ['Auto Acro'] = function()
-        
+        local oldposition = humrp.Position;
+        while (_G.OnBall.Value == 'Auto Acro') do
+            humanoid:MoveTo( Vector3.new(humrp.Position.X+5.5 , humrp.Position.Y , humrp.Position.Z) );
+            task.wait(0.1);
+            shoot(true);
+            sprint(true);
+            
+            task.delay(0.2,function()
+                shoot(false);
+            end);
+            task.wait(0.7);
+            sprint(false);
+            task.wait(1)
+            --start doing the acro
+            shoot(true)
+            shooting = true;
+
+            sprint(true)
+            task.wait(0.3)
+            sprint(false)
+        end;
     end;
 
     ['Auto Off-Dribble'] = function()
         
+        humanoid:MoveTo( Vector3.new(humrp.Position.X+5.5 , humrp.Position.Y , humrp.Position.Z) );
+        task.wait(0.1)
+        shoot(true)
+        shooting = true;
+
     end;
 
     ['Auto Pass'] = function()
-        
+        rs.GameEvents.ClientAction('Pass')
     end;
 }
 
@@ -151,10 +183,10 @@ _G.OffBallActions = {
     end;
 }
 
-for name,action in _G.OnBallActions do
+for name,action in pairs(_G.OnBallActions) do
     add_button('OnBall',name);
 end;
 
-for name,action in _G.OffBallActions do
+for name,action in pairs(_G.OffBallActions) do
     add_button('OffBall',name);
 end;
