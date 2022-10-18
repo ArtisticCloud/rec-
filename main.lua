@@ -97,7 +97,7 @@ function add_button(Type,text)
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
     button.Parent = mainframe;
-    uicorner(0.3,button);
+    uicorner(0.2,button);
 
     return button;
 end;
