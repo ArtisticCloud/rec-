@@ -67,7 +67,7 @@ mainframe.Position = UDim2.fromScale(0.038,0.04);
 mainframe.Parent = backframe;
 
 local listlayout = Instance.new('UIListLayout');
-listlayout.Padding = UDim.new(0.05,0);
+listlayout.Padding = UDim.new(0.04,0);
 listlayout.SortOrder = Enum.SortOrder.LayoutOrder;
 listlayout.Parent = mainframe;
 
@@ -92,12 +92,12 @@ function add_button(Type,text)
     button.Font = Enum.Font.GothamBold;
     button.TextXAlignment = Enum.TextXAlignment.Left;
     button.Position = UDim2.fromScale(0,0);
-    button.Size = UDim2.fromScale(1,0.12);
+    button.Size = UDim2.fromScale(1,0.13);
     button.TextScaled = true;
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
     button.Parent = mainframe;
-    uicorner(0.1,button);
+    uicorner(0.3,button);
 
     return button;
 end;
