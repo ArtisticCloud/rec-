@@ -34,6 +34,8 @@ function add_button(Type,text)
     button.Text = '<i>'..text..'</i>';
     button.Font = Enum.Font.GothamBold;
     button.TextXAlignment = Enum.TextXAlignment.Left;
+    button.Position = UDim2.fromScale(0,0);
+    button.Size = UDim2.fromScale(1,0.15);
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
     button.Parent = mainframe;
