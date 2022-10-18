@@ -27,24 +27,6 @@ function uicorner(str,parentframe)
     return uicorner;
 end;
 
-function add_button(Type,text)
-    local button = Instance.new('TextButton');
-    button.BackgroundColor3 = Color3.fromRGB(0,0,0)    
-    button.RichText = true;
-    button.Text = '<i>'..text..'</i>';
-    button.Font = Enum.Font.GothamBold;
-    button.TextXAlignment = Enum.TextXAlignment.Left;
-    button.Position = UDim2.fromScale(0,0);
-    button.Size = UDim2.fromScale(1,0.15);
-
-    button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
-    button.Parent = mainframe;
-    uicorner(0,button);
-end;
-
-add_button('OffBall','Auto-Guard')
-add_button('OnBall','Auto-Guard')
-
 local backframe = Instance.new('Frame');
 backframe.Position = final_guiposition;
 backframe.Size = UDim2.fromScale(0.171,0.468);
@@ -83,6 +65,7 @@ mainframe.Parent = backframe;
 
 local listlayout = Instance.new('UIListLayout');
 listlayout.Padding = UDim.new(0.05,0);
+listlayout.SortOrder = Enum.SortOrder.LayoutOrder;
 listlayout.Parent = mainframe;
 
 local onballtext = title:Clone();
@@ -96,6 +79,25 @@ offballtext.Text = '<i>Off-Ball</i>';
 offballtext.LayoutOrder = -5;
 
 offballtext.Parent = mainframe;
+
+function add_button(Type,text)
+    local button = Instance.new('TextButton');
+    button.BackgroundColor3 = Color3.fromRGB(0,0,0)    
+    button.RichText = true;
+    button.Text = '<i>'..text..'</i>';
+    button.Font = Enum.Font.GothamBold;
+    button.TextXAlignment = Enum.TextXAlignment.Left;
+    button.Position = UDim2.fromScale(0,0);
+    button.Size = UDim2.fromScale(1,0.15);
+    button.TextScaled = true;
+
+    button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
+    button.Parent = mainframe;
+    uicorner(0,button);
+end;
+
+add_button('OffBall','Auto-Guard')
+add_button('OnBall','Auto-Guard')
 
 --values for the current option
 local shooting = false;
