@@ -92,12 +92,12 @@ function add_button(Type,text)
     button.Font = Enum.Font.GothamBold;
     button.TextXAlignment = Enum.TextXAlignment.Left;
     button.Position = UDim2.fromScale(0,0);
-    button.Size = UDim2.fromScale(1,0.15);
+    button.Size = UDim2.fromScale(1,0.12);
     button.TextScaled = true;
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
     button.Parent = mainframe;
-    uicorner(0.05,button);
+    uicorner(0.1,button);
 
     return button;
 end;
@@ -176,7 +176,7 @@ _G.OnBallActions = {
     end;
 
     ['Auto Pass'] = function()
-        rs.GameEvents.ClientAction('Pass')
+        rs.GameEvents.ClientAction('Pass',_G.OnBall.Value);
     end;
 }
 
@@ -185,6 +185,8 @@ _G.OffBallActions = {
         
     end;
 }
+
+
 
 -- _G.OnBall.Changed:Connect(function(value)
 --     print('new Value:' , value);
