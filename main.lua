@@ -48,7 +48,7 @@ local title = Instance.new('TextLabel');
 title.BackgroundTransparency = 1;
 title.TextScaled = true;
 title.RichText = true;
-title.Text = '<i>Rec Boosting Gui</i>'
+title.Text = '<i>Rec. Boosting</i>'
 title.Font = Enum.Font.GothamBold;
 title.TextXAlignment = Enum.TextXAlignment.Left;
 title.TextColor3 = Color3.fromRGB(255,255,255);
@@ -97,7 +97,9 @@ function add_button(Type,text)
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
     button.Parent = mainframe;
-    uicorner(0,button);
+    uicorner(0.05,button);
+
+    return button;
 end;
 
 --values for the current option
@@ -122,11 +124,12 @@ end;
 
 local moving = false;
 function move_humanoid(position,duration)
-    local reached,timer,connection = false,tick(),nil;
+    local reached;
     
-    while (not reached) and (tick() - timer > duration) do
+    while (not reached) do
         humanoid:Move(position);
-        
+        local distance = (humrp.Position - position).Magnitude;
+        reached = distance < 0.5;
     end;
 end;
 
@@ -183,10 +186,40 @@ _G.OffBallActions = {
     end;
 }
 
+-- _G.OnBall.Changed:Connect(function(value)
+--     print('new Value:' , value);
+--     if mainframe:FindFirstChild(value,true) then
+--         print(mainframe:FindFirstChild(value,true));
+--     end;
+-- end)
+
+
+
+function handle_buttons(button,Type)
+    local action = _G[Type..'Action'][button.Name];
+    _G[Type].Value = (action == _G[Type])
+
+    for _,button in pairs(mainframe:GetDescendants()) do
+        if button.Name[_G[Type..'Action'] ] then
+            button.BackgroundColor3 = Color3.fromRGB(0,0,0);
+        end;
+    end;
+
+    if _G[Type].Value ~= '' then
+        button.BackgroundColor3 = Color3.fromRGB(0,255,0);
+    end;
+end;
+
 for name,action in pairs(_G.OnBallActions) do
-    add_button('OnBall',name);
+  local button = add_button('OnBall',name);
+  button.MouseButton1Down:Connect(function()
+    handle_buttons(button,'OnBall');
+  end);
 end;
 
 for name,action in pairs(_G.OffBallActions) do
-    add_button('OffBall',name);
+    local button = add_button('OffBall',name);
+    button.MouseButton1Down:Connect(function()
+        handle_buttons(button,'OffBall');
+    end);
 end;
