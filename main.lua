@@ -43,6 +43,7 @@ function add_button(Type,text)
 end;
 
 add_button('OffBall','Auto-Guard')
+add_button('OnBall','Auto-Guard')
 
 local backframe = Instance.new('Frame');
 backframe.Position = final_guiposition;
