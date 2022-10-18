@@ -32,7 +32,7 @@ function add_button(Type,text)
     button.BackgroundColor3 = Color3.fromRGB(0,0,0)    
     button.RichText = true;
     button.Text = '<i>'..text..'</i>';
-    button.FontFace = Enum.Font.GothamBold;
+    button.Font = Enum.Font.GothamBold;
     button.TextXAlignment = Enum.TextXAlignment.Left;
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
@@ -61,7 +61,7 @@ title.BackgroundTransparency = 1;
 title.TextScaled = true;
 title.RichText = true;
 title.Text = '<i>Rect Boosting Gui</i>'
-title.FontFace = Enum.Font.GothamBold;
+title.Font = Enum.Font.GothamBold;
 title.TextXAlignment = Enum.TextXAlignment.Left;
 title.TextColor3 = Color3.fromRGB(255,255,255);
 title.Position = UDim2.fromScale(0,-0.102);
