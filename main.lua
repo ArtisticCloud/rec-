@@ -70,7 +70,7 @@ title.Size = UDim2.fromScale(1,0.102);
 title.Parent = backframe;
 
 local mainframe = Instance.new('ScrollingFrame');
-mainframe.BackgroundTransparency = 0.5;
+mainframe.BackgroundTransparency = 1;
 mainframe.ScrollBarThickness = 0;
 mainframe.AutomaticCanvasSize = Enum.AutomaticSize.Y;
 mainframe.Size = UDim2.fromScale(0.929 ,0.938);
