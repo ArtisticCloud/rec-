@@ -27,12 +27,27 @@ function uicorner(str,parentframe)
     return uicorner;
 end;
 
+function add_button(Type,text)
+    local button = Instance.new('TextButton');
+    button.BackgroundColor3 = Color3.fromRGB(0,0,0)    
+    button.RichText = true;
+    button.Text = '<i>'..text..'</i>';
+    button.FontFace = Enum.Font.GothamBold;
+    button.TextXAlignment = Enum.TextXAlignment.Left;
+
+    button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
+    button.Parent = mainframe;
+    uicorner(0,button);
+end;
+
+add_button('OffBall','Auto-Guard')
+
 local backframe = Instance.new('Frame');
 backframe.Position = final_guiposition;
 backframe.Size = UDim2.fromScale(0.171,0.468);
 backframe.BackgroundTransparency = 0.05;
 backframe.BackgroundColor3 = Color3.fromRGB(30,30,30);
-backframe.AnchorPoint = UDim.new(0.5,0.5)
+backframe.AnchorPoint = Vector2.new(0.5,0.5)
 backframe.Parent = MainGui
 
 local aspectratio = Instance.new('UIAspectRatioConstraint');
