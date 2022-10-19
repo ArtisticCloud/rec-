@@ -92,7 +92,7 @@ togglebutton.Size = UDim2.fromScale(1,0.2);
 togglebutton.BackgroundColor3 = Color3.fromRGB(20,245,0);
 togglebutton.TextScaled = true;
 togglebutton.RichText = true;
-togglebutton.Font = ENum.Font.GothamBold;
+togglebutton.Font = Enum.Font.GothamBold;
 togglebutton.Text = '<i>Open Gui</i>';
 
 togglebutton.Parent = mainframe;
