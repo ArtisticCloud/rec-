@@ -75,27 +75,29 @@ listlayout.Parent = mainframe;
 
 local onballtext = title:Clone();
 onballtext.Text = '<i>On-Ball</i>';
+onballtext.Size = onballtext.Size + UDim2.new(0,0.05)
 onballtext.LayoutOrder = -20;
 
 onballtext.Parent = mainframe;
 
 local offballtext = onballtext:Clone();
 offballtext.Text = '<i>Off-Ball</i>';
+offballtext.Size = offballtext.Size + UDim2.new(0,0.05)
 offballtext.LayoutOrder = -5;
 
 offballtext.Parent = mainframe;
 
 local togglebutton = Instance.new('TextButton');
-togglebutton.Position = UDim2.fromScale(0,1.1);
-togglebutton.Size = UDim2.fromScale(1,0.2);
+togglebutton.Position = UDim2.fromScale(0,1.02);
+togglebutton.Size = UDim2.fromScale(1,0.07);
 
-togglebutton.BackgroundColor3 = Color3.fromRGB(20,245,0);
+togglebutton.BackgroundColor3 = Color3.fromRGB(70,235,0);
 togglebutton.TextScaled = true;
 togglebutton.RichText = true;
 togglebutton.Font = Enum.Font.GothamBold;
 togglebutton.Text = '<i>Open Gui</i>';
 
-togglebutton.Parent = mainframe;
+togglebutton.Parent = backframe;
 uicorner(0.2,togglebutton);
 
 local uiopen = false;
