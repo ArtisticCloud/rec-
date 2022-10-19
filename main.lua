@@ -16,10 +16,9 @@ local uis = game:GetService('UserInputService');
 local tween = game:GetService('TweenService');
 
 --create gui
-local MainGui = Instance.new('ScreenGui');
-print(MainGui)
-MainGui.Name = 'MainGui';
-MainGui.Parent = playergui;
+-- local MainGui = Instance.new('ScreenGui');
+-- MainGui.Name = 'MainGui';
+-- MainGui.Parent = playergui;
 
 --useful ui functions and variables
 local final_guiposition = UDim2.fromScale(0.91,0.515);
