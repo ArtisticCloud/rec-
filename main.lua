@@ -236,7 +236,7 @@ _G.OffBallActions = {
 
 function handle_buttons(button,Type)
     local action = _G[Type..'Action'][button.Name];
-    _G[Type].Value = (action == _G[Type] and '') or (button.Name);
+    _G[Type].Value = (_G.OnBall.Value ~= '' and action == _G[Type] and '') or (button.Name);
 
     for _,button in pairs(mainframe:GetDescendants()) do
         if button.Name[_G[Type..'Action'] ] then
@@ -270,3 +270,13 @@ for name,action in pairs(_G.OffBallActions) do
         handle_buttons(button,'OffBall');
     end);
 end;
+
+--detect when user receives the ball
+character.ChildAdded:Connect(function(child)
+    if child.Name == 'ball.weld' then
+        onball_command = _G.OnBallActions[_G.OnBall.Value];
+        if onball_command then
+            onball_command();
+        end;
+    end;
+end);
