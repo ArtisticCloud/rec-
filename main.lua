@@ -190,6 +190,7 @@ _G.OffBallActions = {
 
 
 
+
 -- _G.OnBall.Changed:Connect(function(value)
 --     print('new Value:' , value);
 --     if mainframe:FindFirstChild(value,true) then
@@ -200,9 +201,8 @@ _G.OffBallActions = {
 
 
 function handle_buttons(button,Type)
-    print(button,Type);
     local action = _G[Type..'Action'][button.Name];
-    _G[Type].Value = (action == _G[Type])
+    _G[Type].Value = (action == _G[Type] and '') or (button.Name);
 
     for _,button in pairs(mainframe:GetDescendants()) do
         if button.Name[_G[Type..'Action'] ] then
@@ -213,9 +213,13 @@ function handle_buttons(button,Type)
     if _G[Type].Value ~= '' then
         button.BackgroundColor3 = Color3.fromRGB(0,255,0);
     end;
+    print(_G[Type].Value)
 end;
 
 for name,action in pairs(_G.OnBallActions) do
+  if name == 'Values' then
+    continue;
+  end;
   local button = add_button('OnBall',name);
   button.MouseButton1Down:Connect(function()
     print('button has been pressed');
@@ -224,6 +228,9 @@ for name,action in pairs(_G.OnBallActions) do
 end;
 
 for name,action in pairs(_G.OffBallActions) do
+    if name == 'Values' then
+        continue;
+    end;
     local button = add_button('OffBall',name);
     button.MouseButton1Down:Connect(function()
         handle_buttons(button,'OffBall');
