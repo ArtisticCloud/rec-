@@ -17,6 +17,7 @@ local tween = game:GetService('TweenService');
 
 --create gui
 local MainGui = Instance.new('ScreenGui');
+print(MainGui)
 MainGui.Name = 'MainGui';
 MainGui.Parent = playergui;
 
