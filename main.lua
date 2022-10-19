@@ -15,6 +15,8 @@ local runservice = game:GetService('RunService');
 local uis = game:GetService('UserInputService');
 local tween = game:GetService('TweenService');
 
+--gui vars
+local toggle = Instance.new('BoolValue');
 
 local MainGui = Instance.new('ScreenGui');
 MainGui.Name = 'MainGui';
@@ -83,6 +85,26 @@ offballtext.LayoutOrder = -5;
 
 offballtext.Parent = mainframe;
 
+local togglebutton = Instance.new('TextButton');
+togglebutton.Position = UDim2.fromScale(0,1.1);
+togglebutton.Size = UDim2.fromScale(1,0.2);
+
+togglebutton.BackgroundColor3 = Color3.fromRGB(20,245,0);
+togglebutton.TextScaled = true;
+togglebutton.RichText = true;
+togglebutton.Font = ENum.Font.GothamBold;
+togglebutton.Text = '<i>Open Gui</i>';
+
+togglebutton.Parent = mainframe;
+uicorner(0.2,togglebutton);
+
+local uiopen = false;
+togglebutton.MouseButton1Down:Connect(function()
+    if not uiopen then
+        
+    end;
+end);
+
 function add_button(Type,text)
     local button = Instance.new('TextButton');
     button.BackgroundColor3 = Color3.fromRGB(0,0,0)    
@@ -127,7 +149,7 @@ function move_humanoid(position,duration)
     local reached;
     
     while (not reached) do
-        humanoid:Move(position);
+        humanoid:MoveTo(position);
         local distance = (humrp.Position - position).Magnitude;
         reached = distance < 0.5;
     end;
@@ -179,6 +201,16 @@ _G.OnBallActions = {
 
     ['Auto Pass'] = function()
         rs.GameEvents.ClientAction('Pass',_G.OnBallActions.Values.PassTo);
+    end;
+
+    ['Auto Floater'] = function()
+        for i=1,2 do
+            shoot(true);
+            task.wait(0.07)
+            shoot(false);
+        end;
+        shoot(true);
+        shooting = true;
     end;
 }
 
