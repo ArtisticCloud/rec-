@@ -136,7 +136,9 @@ end;
 
 --actions
 _G.OnBallActions = {
-
+    Values = {
+        PassTo = nil;
+    }
     ['Auto Shoot'] = function()
         shoot(true);
         shooting = true;
@@ -176,7 +178,7 @@ _G.OnBallActions = {
     end;
 
     ['Auto Pass'] = function()
-        rs.GameEvents.ClientAction('Pass',_G.OnBall.Value);
+        rs.GameEvents.ClientAction('Pass',_G.OnBallActions.Values.PassTo);
     end;
 }
 
@@ -198,6 +200,7 @@ _G.OffBallActions = {
 
 
 function handle_buttons(button,Type)
+    print(button,Type);
     local action = _G[Type..'Action'][button.Name];
     _G[Type].Value = (action == _G[Type])
 
@@ -215,6 +218,7 @@ end;
 for name,action in pairs(_G.OnBallActions) do
   local button = add_button('OnBall',name);
   button.MouseButton1Down:Connect(function()
+    print('button has been pressed');
     handle_buttons(button,'OnBall');
   end);
 end;
