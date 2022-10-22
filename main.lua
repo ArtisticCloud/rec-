@@ -292,3 +292,13 @@ character.ChildAdded:Connect(function(child)
         print(onball_command)
     end;
 end);
+
+while true do
+    task.wait();
+    if not get_ball()
+        local offball_command = _G.OffBallActions[_G.OffBall.Value];
+        if offball_command then
+            offball_command()
+        end;
+    end;
+end;
