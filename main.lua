@@ -243,13 +243,13 @@ function handle_buttons(button,Type)
     print(_G[Type].Value)
     for _,button in pairs(mainframe:GetDescendants()) do
         if button.Name[_G[Type..'Actions'] ] then
-            button.BackgroundColor3 = Color3.fromRGB(0,0,0);
+            button.TextColor3 = Color3.fromRGB(255,255,255);
             break;
         end;
     end;
 
     if _G[Type].Value ~= '' then
-        button.BackgroundColor3 = Color3.fromRGB(0,255,0);
+        button.TextColor3 = Color3.fromRGB(0,255,0);
     end;
     print(_G[Type].Value)
 end;
