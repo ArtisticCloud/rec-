@@ -159,7 +159,15 @@ function move_humanoid(position,duration)
     end;
 end;
 
-
+local moving = false;
+function move_humanoid(destination)
+    local finished = false;
+    while not finished do
+        humanoid:MoveTo(destination);
+        local distance = (humrp.Position - destination).Magnitude;
+        print(distance);
+    end
+end
 --actions
 _G.OnBallActions = {
     Values = {
@@ -169,6 +177,11 @@ _G.OnBallActions = {
     ['Auto Shoot'] = function()
         shoot(true);
         shooting = true;
+        
+        repeat
+            task.wait()
+            humanoid:MoveTo(_G.OnBallActions.Values.Position)
+        until humanoid.MoveToFinished:Wait()
     end;
 
     ['Auto Acro'] = function()
@@ -221,14 +234,14 @@ _G.OnBallActions = {
 
 _G.OffBallActions = {
     ['Rebounding'] = function()
-        while _G.OffBallActions == 'Rebounding' do
+        while _G.OffBall.Value == 'Rebounding' do
             task.wait(0.05);
             local ball = workspace:FindFirstChild('Basketball');
             if ball and not get_ball() then
                 local distance = (humrp.Position - ball.Position).Magnitude;
-                if distance < 30 then
-                    local final_destination = ball.Position + ball.Velocity;
-                    humrp:MoveTo(final_destination);
+                if distance < 45 then
+                    local final_destination = ball.Position + ball.Velocity/2;
+                    humanoid:MoveTo(final_destination);
                 end;
             end;
         end;
@@ -286,15 +299,14 @@ end;
 character.ChildAdded:Connect(function(child)
     if child.Name == 'ball.weld' then
         onball_command = _G.OnBallActions[_G.OnBall.Value];
-        -- if onball_command then
-        --     onball_command();
-        -- end;
-        print(onball_command)
+        if onball_command then
+            -- onball_command();
+        end;
     end;
 end);
 
 while true do
-    task.wait();
+    task.wait(0.05);
     if not get_ball() then
         local offball_command = _G.OffBallActions[_G.OffBall.Value];
         if offball_command then
