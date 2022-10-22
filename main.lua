@@ -175,13 +175,11 @@ _G.OnBallActions = {
         Position = nil;
     };
     ['Auto Shoot'] = function()
+        local pos = humrp.Position;
         shoot(true);
         shooting = true;
-        
-        repeat
-            task.wait()
-            humanoid:MoveTo(_G.OnBallActions.Values.Position)
-        until humanoid.MoveToFinished:Wait()
+        task.wait(0.1)
+        humanoid:MoveTo(Vector3.new(pos.X,pos.Y,pos.Z-0.2));
     end;
 
     ['Auto Acro'] = function()
@@ -300,7 +298,7 @@ character.ChildAdded:Connect(function(child)
     if child.Name == 'ball.weld' then
         onball_command = _G.OnBallActions[_G.OnBall.Value];
         if onball_command then
-            -- onball_command();
+            onball_command();
         end;
     end;
 end);
