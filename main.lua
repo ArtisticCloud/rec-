@@ -164,6 +164,7 @@ end;
 _G.OnBallActions = {
     Values = {
         PassTo = nil;
+        Position = nil;
     };
     ['Auto Shoot'] = function()
         shoot(true);
@@ -220,7 +221,17 @@ _G.OnBallActions = {
 
 _G.OffBallActions = {
     ['Rebounding'] = function()
-        
+        while _G.OffBallActions == 'Rebounding' do
+            task.wait(0.05);
+            local ball = workspace:FindFirstChild('Basketball');
+            if ball then
+                local distance = (humrp.Position - ball.Position).Magnitude;
+                if distance < 30 then
+                    local final_destination = ball.Position + ball.Velocity;
+                    humrp:MoveTo(final_destination);
+                end;
+            end;
+        end;
     end;
 }
 
@@ -237,9 +248,8 @@ _G.OffBallActions = {
 
 
 function handle_buttons(button,Type)
-    local action = _G[Type..'Actions'][button.Name];
-    _G[Type].Value = (_G[Type].Value ~= '' and action == _G[Type] and '') or (button.Name);
-    
+    _G[Type].Value = (_G[Type].Value ~= '' and button.Name == _G[Type].Value and '') or (button.Name);
+
     for _,buttons in pairs(mainframe:GetDescendants()) do
         if buttons.ClassName == 'TextButton' and _G[Type..'Actions'][buttons.Name] then
             buttons.BorderColor3 = Color3.fromRGB(255,255,255);
@@ -258,6 +268,7 @@ for name,action in pairs(_G.OnBallActions) do
   local button = add_button('OnBall',name);
   button.MouseButton1Down:Connect(function()
     handle_buttons(button,'OnBall');
+    _G.OnBallActions.Values.Position = humrp.Position;
   end);
 end;
 
@@ -275,8 +286,9 @@ end;
 character.ChildAdded:Connect(function(child)
     if child.Name == 'ball.weld' then
         onball_command = _G.OnBallActions[_G.OnBall.Value];
-        if onball_command then
-            onball_command();
-        end;
+        -- if onball_command then
+        --     onball_command();
+        -- end;
+        print(onball_command)
     end;
 end);
