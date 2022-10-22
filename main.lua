@@ -118,10 +118,12 @@ function add_button(Type,text)
     button.Position = UDim2.fromScale(0,0);
     button.Size = UDim2.fromScale(1,0.13);
     button.TextScaled = true;
+    button.BackgroundTransparency = 1;
+    button.BorderSizePixel = 3;
+    button.BorderColor3 = Color3.new(255,255,255)
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
     button.Parent = mainframe;
-    uicorner(0.2,button);
 
     return button;
 end;
@@ -236,11 +238,11 @@ _G.OffBallActions = {
 
 function handle_buttons(button,Type)
     local action = _G[Type..'Actions'][button.Name];
-    print(action)
+    
     _G[Type].Value = (_G.OnBall.Value ~= '' and action == _G[Type] and '') or (button.Name);
-
+    print(_G[Type].Value)
     for _,button in pairs(mainframe:GetDescendants()) do
-        if button.Name[_G[Type..'Action'] ] then
+        if button.Name[_G[Type..'Actions'] ] then
             button.BackgroundColor3 = Color3.fromRGB(0,0,0);
             break;
         end;
