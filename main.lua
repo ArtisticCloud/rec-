@@ -109,7 +109,7 @@ end);
 
 function add_button(Type,text)
     local button = Instance.new('TextButton');
-    button.BackgroundColor3 = backframe.Color3;  
+    button.BackgroundColor3 = backframe.BackgroundColor3;  
     button.RichText = true;
     button.Text = '<i>'..text..'</i>';
     button.TextColor3 = Color3.fromRGB(255,255,255);
