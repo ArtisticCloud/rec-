@@ -112,6 +112,7 @@ function add_button(Type,text)
     button.BackgroundColor3 = backframe.BackgroundColor3;  
     button.RichText = true;
     button.Text = '<i>'..text..'</i>';
+    button.Name = text;
     button.TextColor3 = Color3.fromRGB(255,255,255);
     button.Font = Enum.Font.GothamBold;
     button.TextXAlignment = Enum.TextXAlignment.Left;
@@ -238,10 +239,10 @@ _G.OffBallActions = {
 function handle_buttons(button,Type)
     local action = _G[Type..'Actions'][button.Name];
     
-    _G[Type].Value = (_G[Type].Value ~= '' and action == _G[Type] and '') or (button.Text);
+    _G[Type].Value = (_G[Type].Value ~= '' and action == _G[Type] and '') or (button.Name);
     print(_G[Type].Value)
     for _,buttons in pairs(mainframe:GetDescendants()) do
-        if buttons.ClassName == 'TextButton' and _G[Type..'Actions'][buttons.Text] then
+        if buttons.ClassName == 'TextButton' and _G[Type..'Actions'][buttons.Name] then
             buttons.BorderColor3 = Color3.fromRGB(255,255,255);
         end;
     end;
