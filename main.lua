@@ -238,9 +238,8 @@ _G.OffBallActions = {
 
 function handle_buttons(button,Type)
     local action = _G[Type..'Actions'][button.Name];
-    
     _G[Type].Value = (_G[Type].Value ~= '' and action == _G[Type] and '') or (button.Name);
-    print(_G[Type].Value)
+    
     for _,buttons in pairs(mainframe:GetDescendants()) do
         if buttons.ClassName == 'TextButton' and _G[Type..'Actions'][buttons.Name] then
             buttons.BorderColor3 = Color3.fromRGB(255,255,255);
@@ -250,7 +249,6 @@ function handle_buttons(button,Type)
     if _G[Type].Value ~= '' then
         button.BorderColor3 = Color3.fromRGB(0,255,0);
     end;
-    print(_G[Type].Value)
 end;
 
 for name,action in pairs(_G.OnBallActions) do
