@@ -235,6 +235,7 @@ _G.OffBallActions = {
 
 
 function handle_buttons(button,Type)
+    print('function called')
     local action = _G[Type..'Action'][button.Name];
     print(action)
     _G[Type].Value = (_G.OnBall.Value ~= '' and action == _G[Type] and '') or (button.Name);
