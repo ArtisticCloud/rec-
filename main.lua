@@ -224,7 +224,7 @@ _G.OffBallActions = {
         while _G.OffBallActions == 'Rebounding' do
             task.wait(0.05);
             local ball = workspace:FindFirstChild('Basketball');
-            if ball then
+            if ball and not get_ball() then
                 local distance = (humrp.Position - ball.Position).Magnitude;
                 if distance < 30 then
                     local final_destination = ball.Position + ball.Velocity;
@@ -295,7 +295,7 @@ end);
 
 while true do
     task.wait();
-    if not get_ball()
+    if not get_ball() then
         local offball_command = _G.OffBallActions[_G.OffBall.Value];
         if offball_command then
             offball_command()
