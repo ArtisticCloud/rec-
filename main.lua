@@ -118,7 +118,7 @@ function add_button(Type,text)
     button.Position = UDim2.fromScale(0,0);
     button.Size = UDim2.fromScale(1,0.13);
     button.TextScaled = true;
-    button.BorderSizePixel = 4;
+    button.BorderSizePixel = 3.5;
     button.BorderColor3 = Color3.new(255,255,255)
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
@@ -240,9 +240,9 @@ function handle_buttons(button,Type)
     
     _G[Type].Value = (_G.OnBall.Value ~= '' and action == _G[Type] and '') or (button.Name);
     print(_G[Type].Value)
-    for _,button in pairs(mainframe:GetDescendants()) do
-        if button.Name[_G[Type..'Actions'] ] then
-            button.BorderColor3 = Color3.fromRGB(255,255,255);
+    for _,buttons in pairs(mainframe:GetDescendants()) do
+        if _G[Type..'Actions'][buttons.name] then
+            buttons.BorderColor3 = Color3.fromRGB(255,255,255);
             break;
         end;
     end;
