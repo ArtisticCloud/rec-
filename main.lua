@@ -69,7 +69,7 @@ mainframe.Position = UDim2.fromScale(0.038,0.04);
 mainframe.Parent = backframe;
 
 local listlayout = Instance.new('UIListLayout');
-listlayout.Padding = UDim.new(0.04,0);
+listlayout.Padding = UDim.new(0.06,0);
 listlayout.SortOrder = Enum.SortOrder.LayoutOrder;
 listlayout.Parent = mainframe;
 
@@ -109,7 +109,7 @@ end);
 
 function add_button(Type,text)
     local button = Instance.new('TextButton');
-    button.BackgroundColor3 = Color3.fromRGB(0,0,0)    
+    button.BackgroundColor3 = backframe.Color3;  
     button.RichText = true;
     button.Text = '<i>'..text..'</i>';
     button.TextColor3 = Color3.fromRGB(255,255,255);
@@ -118,8 +118,7 @@ function add_button(Type,text)
     button.Position = UDim2.fromScale(0,0);
     button.Size = UDim2.fromScale(1,0.13);
     button.TextScaled = true;
-    button.BackgroundTransparency = 1;
-    button.BorderSizePixel = 3;
+    button.BorderSizePixel = 4;
     button.BorderColor3 = Color3.new(255,255,255)
 
     button.LayoutOrder = (Type == 'OffBall' and 0) or (-10);
@@ -243,13 +242,13 @@ function handle_buttons(button,Type)
     print(_G[Type].Value)
     for _,button in pairs(mainframe:GetDescendants()) do
         if button.Name[_G[Type..'Actions'] ] then
-            button.TextColor3 = Color3.fromRGB(255,255,255);
+            button.BorderColor3 = Color3.fromRGB(255,255,255);
             break;
         end;
     end;
 
     if _G[Type].Value ~= '' then
-        button.TextColor3 = Color3.fromRGB(0,255,0);
+        button.BorderColor3 = Color3.fromRGB(0,255,0);
     end;
     print(_G[Type].Value)
 end;
