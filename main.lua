@@ -169,6 +169,7 @@ function move_humanoid(destination)
     end
 end
 --actions
+local Pos = nil
 _G.OnBallActions = {
     Values = {
         PassTo = nil;
@@ -178,8 +179,8 @@ _G.OnBallActions = {
         local pos = humrp.Position;
         shoot(true);
         shooting = true;
-        task.wait(0.1)
-        humanoid:MoveTo(Vector3.new(pos.X,pos.Y,pos.Z-0.2));
+        task.wait(1.5)
+        humanoid:MoveTo(Pos);
     end;
 
     ['Auto Acro'] = function()
@@ -207,12 +208,14 @@ _G.OnBallActions = {
     end;
 
     ['Auto Off-Dribble'] = function()
-        
-        humanoid:MoveTo( Vector3.new(humrp.Position.X+5.5 , humrp.Position.Y , humrp.Position.Z) );
-        task.wait(0.1)
+        humanoid:MoveTo( Vector3.new(humrp.Position.X+20 , humrp.Position.Y , humrp.Position.Z) );
+        task.wait(0.4)
+        print('shooting')
         shoot(true)
         shooting = true;
-
+        
+        task.wait(1.5);
+        humanoid:MoveTo(Pos)
     end;
 
     ['Auto Pass'] = function()
@@ -220,17 +223,21 @@ _G.OnBallActions = {
     end;
 
     ['Auto Floater'] = function()
-        for i=1,2 do
-            shoot(true);
-            task.wait(0.07)
-            shoot(false);
-        end;
-        shoot(true);
+        humanoid:MoveTo( Vector3.new(humrp.Position.X+5.5 , humrp.Position.Y , humrp.Position.Z) );
+        task.wait(0.2)
+        print('shooting')
+        shoot(true)
         shooting = true;
+        
+        task.wait(1.5);
+        humanoid:MoveTo(Pos)
     end;
 }
 
 _G.OffBallActions = {
+    Values = {
+        StealTarget = 'RinBigPapi';
+    };
     ['Rebounding'] = function()
         while _G.OffBall.Value == 'Rebounding' do
             task.wait(0.05);
@@ -240,6 +247,18 @@ _G.OffBallActions = {
                 if distance < 45 then
                     local final_destination = ball.Position + ball.Velocity/2;
                     humanoid:MoveTo(final_destination);
+                end;
+            end;
+        end;
+    end;
+    ['Auto Steal'] = function()
+        while _G.OffBall.Value == 'Auto Steal' do
+            task.wait(0.05);
+            local target = game.Players[_G.OffBallActions.Values.StealTarget];
+            if target then
+                target = target.Character.HumanoidRootPart
+                if not get_ball() then
+                    humanoid:MoveTo(target.Position + Vector3.new(0,0,3));
                 end;
             end;
         end;
@@ -279,6 +298,7 @@ for name,action in pairs(_G.OnBallActions) do
   local button = add_button('OnBall',name);
   button.MouseButton1Down:Connect(function()
     handle_buttons(button,'OnBall');
+    Pos = humrp.Position
     _G.OnBallActions.Values.Position = humrp.Position;
   end);
 end;
@@ -312,3 +332,4 @@ while true do
         end;
     end;
 end;
+end);
