@@ -237,16 +237,24 @@ _G.OnBallActions = {
 _G.OffBallActions = {
     Values = {
         StealTarget = 'RinBigPapi';
+        ReboundPosition = humrp.Position
     };
     ['Rebounding'] = function()
         while _G.OffBall.Value == 'Rebounding' do
             task.wait(0.05);
             local ball = workspace:FindFirstChild('Basketball');
+            local inbbound = game.Workspace:FindFirstChild('_Inbound',true)
+            print(inbound)
+            if inbound and inbound:FindFirstChild('TouchInterest') then
+                humanoid:MoveTo(inbbound.Position)
+            end
             if ball and not get_ball() then
                 local distance = (humrp.Position - ball.Position).Magnitude;
-                if distance < 45 then
+                if distance < 30 then
                     local final_destination = ball.Position + ball.Velocity/2;
                     humanoid:MoveTo(final_destination);
+                else
+                    humanoid:MoveTo(Values.ReboundPosition)
                 end;
             end;
         end;
@@ -310,6 +318,7 @@ for name,action in pairs(_G.OffBallActions) do
     local button = add_button('OffBall',name);
     button.MouseButton1Down:Connect(function()
         handle_buttons(button,'OffBall');
+        _G.OffBallActions.Values.ReboundPosition = humrp.Position
     end);
 end;
 
